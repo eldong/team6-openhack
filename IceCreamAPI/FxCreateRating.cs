@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Net;
+using IceCreamAPI.Types;
 
 namespace IceCreamAPI
 {
@@ -86,6 +87,9 @@ namespace IceCreamAPI
 
 
             //Inserting the rating Instance in the DB
+            var ratingService = new RatingService();
+            var insertionOk = ratingService.WriteRatingAsync(rating);
+            if (!insertionOk) return new StatusCodeResult(510);
 
             return new OkObjectResult(rating);
         }

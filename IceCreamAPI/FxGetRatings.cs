@@ -1,3 +1,4 @@
+using IceCreamAPI.Types;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -16,37 +17,17 @@ namespace IceCreamAPI
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req,
             ILogger log)
         {
-            string name = req.Query["userId"];
-            if (String.IsNullOrEmpty(name)) return new BadRequestObjectResult("InvalidInput");
+            string userId = req.Query["userId"];
+            if (String.IsNullOrEmpty(userId)) return new BadRequestObjectResult("InvalidInput");
 
-            var ratings = new List<RatingInfo>()
-            {
-                new RatingInfo()
-                {
-                Id = "adssad",
-                LocationName = "asdsadsa",
-                ProductId = "dsada",
-                Rating = 5,
-                TimeStamp = DateTime.UtcNow,
-                UserId = ";aklsjdlkjsadlkjsa",
-                UserNotes = "I like it"
-                },
-                new RatingInfo()
-                {
-                Id = "asdfadssad",
-                LocationName = "addddddddsdsadsa",
-                ProductId = "11111dsada",
-                Rating = 1,
-                TimeStamp = DateTime.UtcNow,
-                UserId = ";klsjdlkjsadlkjsa",
-                UserNotes = "I disliked it"
-                }
-            };
-
-
+           
             //read ratings from service
+            var ratingService = new RatingService();
+            var ratings = ratingService.GetAllRatingsAsync(userId);
+
 
             if (ratings == null) return new NotFoundResult();
+
 
             return new OkObjectResult(ratings);
         }

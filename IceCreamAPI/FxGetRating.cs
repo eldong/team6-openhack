@@ -1,12 +1,11 @@
-using System;
-using System.IO;
-using System.Threading.Tasks;
+using IceCreamAPI.Types;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using System;
+using System.Threading.Tasks;
 
 namespace IceCreamAPI
 {
@@ -17,22 +16,12 @@ namespace IceCreamAPI
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req,
             ILogger log)
         {
-            string name = req.Query["ratingId"];
-            if (String.IsNullOrEmpty(name)) return new BadRequestObjectResult("InvalidInput");
-
-            var rating = new RatingInfo()
-            {
-                Id = "adssad",
-                LocationName = "asdsadsa",
-                ProductId = "dsada",
-                Rating = 5,
-                TimeStamp = DateTime.UtcNow,
-                UserId = ";aklsjdlkjsadlkjsa",
-                UserNotes = "I like it"
-            };
-
+            string ratingId = req.Query["ratingId"];
+            if (String.IsNullOrEmpty(ratingId)) return new BadRequestObjectResult("InvalidInput");
 
             //read rating from service
+            var ratingService = new RatingService();
+            var rating = ratingService.GetRatingInfoAsync(ratingId);
 
             if (rating == null) return new NotFoundResult();
 
