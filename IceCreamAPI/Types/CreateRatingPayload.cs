@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OpenhackFY22
+namespace IceCreamAPI
 {
     public class CreateRatingPayload
     {
