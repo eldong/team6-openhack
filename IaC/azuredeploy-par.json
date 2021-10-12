@@ -1,0 +1,18 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workflows_laohch2_name": {
+            "value": "laohch2"
+        },
+        "sites_team6challenge2_name": {
+            "value": "ASP-IaCZoneTeam6-9afc"
+        },
+        "serverfarms_ASP_IaCZoneTeam6_9afc_name": {
+            "value": "ASP-IaCZoneTeam6-9afc"
+        },
+        "storageAccounts_storageaccountiaczoaa7d_name": {
+            "value": "storageaccountiaczoaa7d"
+        }
+    }
+}
