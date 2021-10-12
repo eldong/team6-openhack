@@ -27,6 +27,7 @@ namespace IceCreamAPI
 
 
             var ratingService = new RatingService();
+            ratingService.Connect();
 
             var ratings = ratingService.GetAllRatingsAsync(productId);
 
