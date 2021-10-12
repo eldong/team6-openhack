@@ -10,11 +10,11 @@ using Newtonsoft.Json;
 
 namespace IceCreamAPI
 {
-    public static class Function1
+    public static class RatingFunction
     {
-        [FunctionName("Function1")]
+        [FunctionName("RatingFunction")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
