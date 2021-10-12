@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace IceCreamAPI
+namespace IceCreamAPI.Types
 {
     public class Customer
     {

@@ -1,0 +1,24 @@
+on: workflow_dispatch
+name: IaC Deploy Challenge 2
+jobs:
+  arm-template-deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+      # Checkout code
+    - uses: actions/checkout@main
+
+      # Log into Azure
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # Deploy ARM template
+    - name: Run ARM deploy
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+        resourceGroupName: IaC_Zone_Team6
+        template: ./IaC/azuredeploy.json
+        # parameters: storageAccounts_name=oamx
+        parameters: ./IaC/azuredeploy-par.json
