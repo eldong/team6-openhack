@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OpenhackFY22.Types
+﻿namespace IceCreamAPI.Types
 {
     public class CreateRatingPayload
     {
