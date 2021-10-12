@@ -1,5 +1,6 @@
-name: "Build and Deploy"
-on: [push, workflow_dispatch]
+name: "Build and Deploy IceCreamAPI"
+#on: [push, workflow_dispatch]
+on: [workflow_dispatch]
 env:
   AZURE_WEBAPP_NAME: team6-openhack-function
   AZURE_WEBAPP_PACKAGE_NAME: "../published"
