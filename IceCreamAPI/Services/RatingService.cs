@@ -42,7 +42,7 @@ namespace IceCreamAPI
             };
         }
 
-        public List<RatingInfo> GetAllRatingsAsync(string productId)
+        public List<RatingInfo> GetAllRatingsAsync(string userId)
         {
             if(!Connect())
             {
@@ -58,7 +58,7 @@ namespace IceCreamAPI
 
             };
 
-            if(productId == "p1")
+            if(userId == "p1")
             {
               ratings.Add(rating1);
             }
