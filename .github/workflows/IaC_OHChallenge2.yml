@@ -18,7 +18,7 @@ jobs:
       uses: azure/arm-deploy@v1
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-        resourceGroupName: IaC_Zone_Team6
+        resourceGroupName: IaC_Zone_Team6-A
         template: ./IaC/azuredeploy.json
         # parameters: storageAccounts_name=oamx
         parameters: ./IaC/azuredeploy-par.json
