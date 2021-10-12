@@ -1,7 +1,7 @@
 name: "Build and Deploy"
 on: [push, workflow_dispatch]
 env:
-  AZURE_WEBAPP_NAME: <azure web app name>
+  AZURE_WEBAPP_NAME: team6-openhack-function
   AZURE_WEBAPP_PACKAGE_NAME: "../published"
   NETCORE_VERSION: "3.1.101"
 jobs:
@@ -16,11 +16,11 @@ jobs:
           dotnet-version: ${{ env.NETCORE_VERSION }}
       - name: Restore
         run: |
-          cd <name of your app>
+          cd IceCreamAPI
           dotnet restore
       - name: Build
         run: |
-          cd <name of your app>
+          cd IceCreamAPI
           dotnet build --no-restore
       - name: Publish
         run: |
