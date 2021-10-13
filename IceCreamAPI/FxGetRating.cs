@@ -31,7 +31,7 @@ namespace IceCreamAPI
             var rating = await _ratingService.GetRatingInfoAsync(ratingId);
             if (rating == null) return new NotFoundResult();
 
-            return new OkObjectResult(new RatingInfo());
+            return new OkObjectResult(rating);
         }
     }
 }

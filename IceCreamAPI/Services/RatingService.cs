@@ -28,7 +28,7 @@ namespace IceCreamAPI
 
         public async Task<ItemResponse<RatingInfo>> WriteRatingAsync(RatingInfo rating)
         {
-            var result = await WriteRatingAsync(rating);
+            var result = await _cosmosDbService.WriteRatingAsync(rating);
 
             return result;
         }
