@@ -1,9 +1,11 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace IceCreamAPI.Types
 {
     public class RatingInfo
     {
+        [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
         public string UserId { get; set; }
         public string ProductId { get; set; }        
