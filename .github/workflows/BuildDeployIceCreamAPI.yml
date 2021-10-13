@@ -1,5 +1,6 @@
 name: "Build and Deploy IceCreamAPI"
 on: 
+  workflow_dispatch:
   push:
     branches:
     - main
@@ -21,6 +22,12 @@ jobs:
       - uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+                    
+      - uses: Azure/get-keyvault-secrets@v1
+        with: 
+          keyvault: "team6-keyvault2"
+          secrets: 'AZURE-WEBAPP-PUBLISH-PROFILE'
+        id: myGetSecretAction          
         
       - name: Set up dotnet Core ${{ env.NETCORE_VERSION }}
         uses: actions/setup-dotnet@v1
@@ -42,5 +49,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          publish-profile: ${{ steps.myGetSecretAction.outputs.AZURE-WEBAPP-PUBLISH-PROFILE }}
           package: ./published
