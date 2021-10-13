@@ -7,24 +7,30 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Azure.Functions.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
+using IceCreamAPI;
 
 namespace IceCreamAPI
 {
-    public static class FxGetRatings
+    public class FxGetRatings
     {
+        private readonly IRatingService _ratingService;
+
+        public FxGetRatings(IRatingService ratingService)
+        {
+            _ratingService = ratingService;      
+        }     
+
         [FunctionName("GetRatings")]
-        public static async Task<IActionResult> Run(
+        public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req,
             ILogger log)
         {
             string userId = req.Query["userId"];
             if (String.IsNullOrEmpty(userId)) return new BadRequestObjectResult("InvalidInput");
-
-           
-            //read ratings from service
-            var ratingService = new RatingService();
-            var ratings = await ratingService.GetAllRatingsAsync(userId);
-
+ 
+            var ratings = await _ratingService.GetAllRatingsAsync(userId);
 
             if (ratings == null || ratings.Count == 0) return new NotFoundResult();
 

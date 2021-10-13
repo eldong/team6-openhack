@@ -9,10 +9,17 @@ using System.Threading.Tasks;
 
 namespace IceCreamAPI
 {
-    public static class FxGetRating
+    public class FxGetRating
     {
+        private readonly IRatingService _ratingService;
+
+        public FxGetRating(IRatingService ratingService)
+        {
+            _ratingService = ratingService;      
+        }   
+
         [FunctionName("GetRating")]
-        public static async Task<IActionResult> Run(
+        public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req,
             ILogger log)
         {
@@ -20,12 +27,11 @@ namespace IceCreamAPI
             if (String.IsNullOrEmpty(ratingId)) return new BadRequestObjectResult("InvalidInput");
 
             //read rating from service
-            var ratingService = new RatingService();
-            var rating = ratingService.GetRatingInfoAsync(ratingId);
 
+            var rating = await _ratingService.GetRatingInfoAsync(ratingId);
             if (rating == null) return new NotFoundResult();
 
-            return new OkObjectResult(rating);
+            return new OkObjectResult(new RatingInfo());
         }
     }
 }

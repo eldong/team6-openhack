@@ -12,10 +12,17 @@ using IceCreamAPI.Types;
 
 namespace IceCreamAPI
 {
-    public static class FxCreateRating
+    public  class FxCreateRating
     {
+        private readonly IRatingService _ratingService;
+
+        public FxCreateRating(IRatingService ratingService)
+        {
+            _ratingService = ratingService;      
+        }  
+        
         [FunctionName("CreateRating")]
-        public static async Task<IActionResult> Run(
+        public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
             ILogger log)
         {
@@ -87,11 +94,10 @@ namespace IceCreamAPI
 
 
             //Inserting the rating Instance in the DB
-            var ratingService = new RatingService();
-            var insertionOk = ratingService.WriteRatingAsync(rating);
-            if (!insertionOk) return new StatusCodeResult(510);
+             var result = await _ratingService.WriteRatingAsync(rating);
+             if (result.Resource == null) return new StatusCodeResult(510);  //review
 
-            return new OkObjectResult(rating);
+            return new OkObjectResult(result.Resource);
         }
     }
 }

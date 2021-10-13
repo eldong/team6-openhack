@@ -3,32 +3,61 @@ using IceCreamAPI.Types;
 using System.Collections.Generic;
 using Microsoft.Azure.Cosmos;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace IceCreamAPI
 {
-    public class CosmosDbService
+    public class CosmosDbService : ICosmosDbService
     {
         private Container _container;
-        public CosmosDbService()
+
+        public CosmosDbService(CosmosClient client, string databaseName, string containerName)
         {
-            
+            this._container = client.GetContainer(databaseName, containerName);
         }
 
-        public Container Connect()
+        public async Task<List<RatingInfo>> GetAllRatingsAsync(string userId)
         {
-            string databaseName = "products";
-            string containerName = "indertest";
-            string account = "https://team6-cosmos-db.documents.azure.com:443";
-            string key = "soMSFBnsNV5anEdm11Z8NxJahlvTryHnnprRYIvvCjY9rOUVp0FSzdPlOYgkjLysupMxVAXcw1h4FCZHG90NlA==";
-            
-            Microsoft.Azure.Cosmos.CosmosClient client = new Microsoft.Azure.Cosmos.CosmosClient(account, key);
-            _container =  client.GetContainer(databaseName, containerName); 
-            // Microsoft.Azure.Cosmos.DatabaseResponse database = await client.CreateDatabaseIfNotExistsAsync(databaseName);
-            // await database.Database.CreateContainerIfNotExistsAsync(containerName, "/subscriptionName");
+             QueryDefinition queryDefinition = new QueryDefinition("select * from ratings r where r.Userid = @UserId").WithParameter("@UserId", userId);
 
-            // return this;
+            FeedIterator<RatingInfo> queryResultSetIterator = _container.GetItemQueryIterator<RatingInfo>(queryDefinition);
 
-            return this._container;
+            List<RatingInfo> ratings = new List<RatingInfo>();
+
+            while (queryResultSetIterator.HasMoreResults)
+            {
+                foreach (var r in await queryResultSetIterator.ReadNextAsync())
+                {
+                    ratings.Add(r);
+                }
+            }
+            return ratings;
+        }
+
+        public async Task<RatingInfo> GetRatingInfoAsync(string ratingid)
+        {
+             QueryDefinition queryDefinition = new QueryDefinition("select * from ratings r where r.RatingId = @RatingId").WithParameter("@RatingId", ratingid);
+
+            FeedIterator<RatingInfo> queryResultSetIterator = _container.GetItemQueryIterator<RatingInfo>(queryDefinition);
+
+            List<RatingInfo> ratings = new List<RatingInfo>();
+
+            while (queryResultSetIterator.HasMoreResults)
+            {
+                foreach (var r in await queryResultSetIterator.ReadNextAsync())
+                {
+                    ratings.Add(r);
+                }
+            }
+
+            return ratings.FirstOrDefault();
+        }
+
+        public async Task<ItemResponse<RatingInfo>> WriteRatingAsync(RatingInfo rating)
+        {
+             var result = await _container.CreateItemAsync<RatingInfo>(rating, new PartitionKey(rating.Id));
+
+            return result;
         }
     }
 
