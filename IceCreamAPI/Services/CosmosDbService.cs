@@ -18,7 +18,7 @@ namespace IceCreamAPI
 
         public async Task<List<RatingInfo>> GetAllRatingsAsync(string userId)
         {
-             QueryDefinition queryDefinition = new QueryDefinition("select * from ratings r where r.Userid = @UserId").WithParameter("@UserId", userId);
+             QueryDefinition queryDefinition = new QueryDefinition("select * from ratings r where r.userId = @UserId").WithParameter("@UserId", userId);
 
             FeedIterator<RatingInfo> queryResultSetIterator = _container.GetItemQueryIterator<RatingInfo>(queryDefinition);
 
@@ -36,21 +36,15 @@ namespace IceCreamAPI
 
         public async Task<RatingInfo> GetRatingInfoAsync(string ratingid)
         {
-             QueryDefinition queryDefinition = new QueryDefinition("select * from ratings r where r.RatingId = @RatingId").WithParameter("@RatingId", ratingid);
-
-            FeedIterator<RatingInfo> queryResultSetIterator = _container.GetItemQueryIterator<RatingInfo>(queryDefinition);
-
-            List<RatingInfo> ratings = new List<RatingInfo>();
-
-            while (queryResultSetIterator.HasMoreResults)
+            try
             {
-                foreach (var r in await queryResultSetIterator.ReadNextAsync())
-                {
-                    ratings.Add(r);
-                }
+                ItemResponse<RatingInfo> response = await this._container.ReadItemAsync<RatingInfo>(ratingid, new PartitionKey(ratingid));
+                return response.Resource;
             }
-
-            return ratings.FirstOrDefault();
+            catch(CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+            { 
+                return null;
+            }
         }
 
         public async Task<ItemResponse<RatingInfo>> WriteRatingAsync(RatingInfo rating)
