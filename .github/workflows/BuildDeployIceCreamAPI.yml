@@ -21,7 +21,7 @@ jobs:
       # Log into Azure
       - uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: ${{ secrets.SP_CREDS }}
                     
       - uses: Azure/get-keyvault-secrets@v1
         with: 
