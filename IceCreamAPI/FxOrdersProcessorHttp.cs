@@ -23,7 +23,7 @@ namespace IceCreamAPI
 
         [FunctionName("FxOrdersProcessorHttp")]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req)
         {           
 
             string storageUrl = req.Query["storageUrl"];
