@@ -11,7 +11,9 @@ namespace IceCreamAPI
         public override void Configure(IFunctionsHostBuilder builder)
         {
             builder.Services.AddSingleton<ICosmosDbService>(InitializeCosmosClientInstanceAsync().GetAwaiter().GetResult());
+             builder.Services.AddSingleton<FileBatchCosmosClient>(InitializeFileBatchCosmosClientInstanceAsync().GetAwaiter().GetResult());
             builder.Services.AddSingleton<IRatingService,RatingService>();
+            builder.Services.AddSingleton<IFileBatchCosmosClient,FileBatchCosmosClient>();
         }
 
         private static async Task<CosmosDbService> InitializeCosmosClientInstanceAsync()
@@ -31,7 +33,7 @@ namespace IceCreamAPI
             return cosmosDbService;
         }
 
-        private static async Task<CosmosDbService> InitializeFileBatchCosmosClientInstanceAsync()
+        private static async Task<FileBatchCosmosClient> InitializeFileBatchCosmosClientInstanceAsync()
         {
             string databaseName = System.Environment.GetEnvironmentVariable("COSMOS_DB_DATABASE_NAME");
             string containerName = System.Environment.GetEnvironmentVariable("COSMOS_DB_FILE_BATCH_CONTAINER_NAME");
@@ -42,7 +44,7 @@ namespace IceCreamAPI
             var credentials = new DefaultAzureCredential();
 
             Microsoft.Azure.Cosmos.CosmosClient client = new Microsoft.Azure.Cosmos.CosmosClient(account, credentials);
-            CosmosDbService cosmosDbService =  new CosmosDbService(client, databaseName, containerName); 
+            FileBatchCosmosClient cosmosDbService =  new FileBatchCosmosClient(client, databaseName, containerName); 
             Microsoft.Azure.Cosmos.DatabaseResponse database = await client.CreateDatabaseIfNotExistsAsync(databaseName);
             await database.Database.CreateContainerIfNotExistsAsync(containerName, "/batchid");
             return cosmosDbService;
