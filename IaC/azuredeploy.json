@@ -14,11 +14,11 @@
             "defaultValue": "ASP-IaCZoneTeam6-9afc",
             "type": "String"
         },
-        "storageAccounts_storageaccountiaczoaa7d_name": {
+        "storageAccounts_storageAccounts_orders": {
             "defaultValue": "ohch6team6orders",
             "type": "String"
         },
-        "storageAccounts_storageAccounts_orders": {
+        "storageAccounts_storageaccountiaczoaa7d_name": {
             "defaultValue": "storageaccountiaczoaa7d",
             "type": "String"
         }
