@@ -1,0 +1,316 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workflows_processcsvfiles_name": {
+            "defaultValue": "processcsvfiles",
+            "type": "String"
+        },
+        "connections_azureblob_externalid": {
+            "defaultValue": "/subscriptions/620c30a1-87d2-42fc-9eea-1e18cdf2d71d/resourceGroups/team6-openhack-rg/providers/Microsoft.Web/connections/azureblob",
+            "type": "String"
+        },
+        "connections_documentdb_externalid": {
+            "defaultValue": "/subscriptions/620c30a1-87d2-42fc-9eea-1e18cdf2d71d/resourceGroups/team6-openhack-rg/providers/Microsoft.Web/connections/documentdb",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name": "[parameters('workflows_processcsvfiles_name')]",
+            "location": "eastus",
+            "properties": {
+                "state": "Enabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "$connections": {
+                            "defaultValue": {},
+                            "type": "Object"
+                        }
+                    },
+                    "triggers": {
+                        "When_a_blob_is_added_or_modified_(properties_only)_(V2)": {
+                            "recurrence": {
+                                "frequency": "Second",
+                                "interval": 30
+                            },
+                            "evaluatedRecurrence": {
+                                "frequency": "Second",
+                                "interval": 30
+                            },
+                            "splitOn": "@triggerBody()",
+                            "metadata": {
+                                "JTJmb3JkZXJz": "/orders"
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['azureblob']['connectionId']"
+                                    }
+                                },
+                                "method": "get",
+                                "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent('AccountNameFromSettings'))}/triggers/batch/onupdatedfile",
+                                "queries": {
+                                    "checkBothCreatedAndModifiedDateTime": false,
+                                    "folderId": "JTJmb3JkZXJz",
+                                    "maxFileCount": 10
+                                }
+                            }
+                        }
+                    },
+                    "actions": {
+                        "Compose": {
+                            "runAfter": {
+                                "Parse_JSON": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Compose",
+                            "inputs": {
+                                "id": "@{guid()}",
+                                "item:": "@{body('Parse_JSON')}"
+                            }
+                        },
+                        "Create_block_blob_(V2)": {
+                            "runAfter": {
+                                "HTTP": [
+                                    "Failed"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "body": "@body('HTTP')",
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['azureblob']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "path": "/v2/codeless/datasets/@{encodeURIComponent('AccountNameFromSettings')}/CreateBlockBlob",
+                                "queries": {
+                                    "folderPath": "/jsonorders",
+                                    "name": "@variables('jsonfile')"
+                                }
+                            },
+                            "runtimeConfiguration": {
+                                "contentTransfer": {
+                                    "transferMode": "Chunked"
+                                }
+                            }
+                        },
+                        "Create_or_update_document_(V3)": {
+                            "runAfter": {
+                                "Compose": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "body": "@outputs('Compose')",
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['documentdb']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "path": "/v2/cosmosdb/@{encodeURIComponent('AccountNameFromSettings')}/dbs/@{encodeURIComponent('products')}/colls/@{encodeURIComponent('jsonfiles')}/docs"
+                            }
+                        },
+                        "HTTP": {
+                            "runAfter": {
+                                "Initialize_variable": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Http",
+                            "inputs": {
+                                "body": {
+                                    "orderHeaderDetailsCSVUrl": "@{variables('OrderHeaderDetails')}",
+                                    "orderLineItemsCSVUrl": "@{variables('OrderLineItems')}",
+                                    "productInformationCSVUrl": "@{variables('ProductInformation')}"
+                                },
+                                "method": "POST",
+                                "uri": "https://serverlessohmanagementapi.trafficmanager.net/api/order/combineOrderContent"
+                            }
+                        },
+                        "Initialize_variable": {
+                            "runAfter": {
+                                "OrderHeaderDetails": [
+                                    "Succeeded"
+                                ],
+                                "OrderLineItems": [
+                                    "Succeeded"
+                                ],
+                                "ProductInformation": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "jsonfile",
+                                        "type": "string",
+                                        "value": "@{concat('jsonfile-',substring(triggerBody()?['Name'],0,14),'.json')}"
+                                    }
+                                ]
+                            }
+                        },
+                        "OrderHeaderDetails": {
+                            "runAfter": {},
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "OrderHeaderDetails",
+                                        "type": "string",
+                                        "value": "@{concat('https://ohteam6ch6stg.blob.core.windows.net/orders/',substring(triggerBody()?['Name'],0,14),'-OrderHeaderDetails.csv')}"
+                                    }
+                                ]
+                            }
+                        },
+                        "OrderLineItems": {
+                            "runAfter": {},
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "OrderLineItems",
+                                        "type": "string",
+                                        "value": "@{concat('https://ohteam6ch6stg.blob.core.windows.net/orders/',substring(triggerBody()?['Name'],0,14),'-OrderLineItems.csv')}"
+                                    }
+                                ]
+                            }
+                        },
+                        "Parse_JSON": {
+                            "runAfter": {
+                                "HTTP": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ParseJson",
+                            "inputs": {
+                                "content": "@body('HTTP')",
+                                "schema": {
+                                    "items": {
+                                        "properties": {
+                                            "details": {
+                                                "items": {
+                                                    "properties": {
+                                                        "productDescription": {
+                                                            "type": "string"
+                                                        },
+                                                        "productId": {
+                                                            "type": "string"
+                                                        },
+                                                        "productName": {
+                                                            "type": "string"
+                                                        },
+                                                        "quantity": {
+                                                            "type": "string"
+                                                        },
+                                                        "totalCost": {
+                                                            "type": "string"
+                                                        },
+                                                        "totalTax": {
+                                                            "type": "string"
+                                                        },
+                                                        "unitCost": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "productId",
+                                                        "quantity",
+                                                        "unitCost",
+                                                        "totalCost",
+                                                        "totalTax",
+                                                        "productName",
+                                                        "productDescription"
+                                                    ],
+                                                    "type": "object"
+                                                },
+                                                "type": "array"
+                                            },
+                                            "headers": {
+                                                "properties": {
+                                                    "dateTime": {
+                                                        "type": "string"
+                                                    },
+                                                    "locationAddress": {
+                                                        "type": "string"
+                                                    },
+                                                    "locationId": {
+                                                        "type": "string"
+                                                    },
+                                                    "locationName": {
+                                                        "type": "string"
+                                                    },
+                                                    "locationPostcode": {
+                                                        "type": "string"
+                                                    },
+                                                    "salesNumber": {
+                                                        "type": "string"
+                                                    },
+                                                    "totalCost": {
+                                                        "type": "string"
+                                                    },
+                                                    "totalTax": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "required": [
+                                            "headers",
+                                            "details"
+                                        ],
+                                        "type": "object"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "ProductInformation": {
+                            "runAfter": {},
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "ProductInformation",
+                                        "type": "string",
+                                        "value": "@{concat('https://ohteam6ch6stg.blob.core.windows.net/orders/',substring(triggerBody()?['Name'],0,14),'-ProductInformation.csv')}"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "outputs": {}
+                },
+                "parameters": {
+                    "$connections": {
+                        "value": {
+                            "azureblob": {
+                                "connectionId": "[parameters('connections_azureblob_externalid')]",
+                                "connectionName": "azureblob",
+                                "id": "/subscriptions/620c30a1-87d2-42fc-9eea-1e18cdf2d71d/providers/Microsoft.Web/locations/eastus/managedApis/azureblob"
+                            },
+                            "documentdb": {
+                                "connectionId": "[parameters('connections_documentdb_externalid')]",
+                                "connectionName": "documentdb",
+                                "id": "/subscriptions/620c30a1-87d2-42fc-9eea-1e18cdf2d71d/providers/Microsoft.Web/locations/eastus/managedApis/documentdb"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}
