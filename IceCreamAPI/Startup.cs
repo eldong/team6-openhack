@@ -57,7 +57,7 @@ namespace IceCreamAPI
         private static async Task<FileBatchContentClient> InitializeFileBatchContentClientInstanceAsync()
         {
             string databaseName = System.Environment.GetEnvironmentVariable("COSMOS_DB_DATABASE_NAME");
-            string containerName = System.Environment.GetEnvironmentVariable("COSMOS_DB_FILE_BATCH_CONTAINER_NAME");
+            string containerName = System.Environment.GetEnvironmentVariable("COSMOS_DB_FILE_CONTENT_CONTAINER_NAME");
             string account = System.Environment.GetEnvironmentVariable("COSMOS_DB_URL");
 
             string key = System.Environment.GetEnvironmentVariable("COSMOS_DB_ACCOUNT_KEY");
