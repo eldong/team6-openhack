@@ -14,8 +14,9 @@ namespace InternalBusinessUsersBackend
             builder.Services.AddSingleton<ICosmosDbService>(InitializeCosmosClientInstanceAsync().GetAwaiter().GetResult());
             builder.Services.AddSingleton<FileBatchCosmosClient>(InitializeFileBatchCosmosClientInstanceAsync().GetAwaiter().GetResult());
             builder.Services.AddSingleton<IRatingService,RatingService>();
-            builder.Services.AddSingleton<IFileBatchCosmosClient,FileBatchCosmosClient>();
-            builder.Services.AddSingleton<IFileBatchContentClient,FileBatchContentClient>();
+            //builder.Services.AddSingleton<IFileBatchCosmosClient,FileBatchCosmosClient>();
+            //builder.Services.AddSingleton<IFileBatchContentClient,FileBatchContentClient>();
+            builder.Services.AddSingleton<IFileProcessService, FileProcessService>();
         }
 
         private static async Task<CosmosDbService> InitializeCosmosClientInstanceAsync()
@@ -51,7 +52,7 @@ namespace InternalBusinessUsersBackend
             return cosmosDbService;
         }
 
-        private static async Task<FileBatchContentCosmosClient> InitializeFileBatchContentClientInstanceAsync()
+        private static async Task<FileBatchContentClient> InitializeFileBatchContentClientInstanceAsync()
         {
             string databaseName = System.Environment.GetEnvironmentVariable("COSMOS_DB_DATABASE_NAME");
             string containerName = System.Environment.GetEnvironmentVariable("COSMOS_DB_FILE_BATCH_CONTAINER_NAME");
@@ -65,7 +66,7 @@ namespace InternalBusinessUsersBackend
             FileBatchContentClient contentService =  new FileBatchContentClient(client, databaseName, containerName); 
             Microsoft.Azure.Cosmos.DatabaseResponse database = await client.CreateDatabaseIfNotExistsAsync(databaseName);
             await database.Database.CreateContainerIfNotExistsAsync(containerName, "/batchid");
-            return cosmosDbService;
+            return contentService;
         }
     }
 }

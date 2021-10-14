@@ -13,10 +13,11 @@ namespace IceCreamAPI
         {
             builder.Services.AddSingleton<ICosmosDbService>(InitializeCosmosClientInstanceAsync().GetAwaiter().GetResult());
             builder.Services.AddSingleton<FileBatchCosmosClient>(InitializeFileBatchCosmosClientInstanceAsync().GetAwaiter().GetResult());
+            builder.Services.AddSingleton<FileBatchContentClient>(InitializeFileBatchContentClientInstanceAsync().GetAwaiter().GetResult());
             builder.Services.AddSingleton<IRatingService,RatingService>();
-            builder.Services.AddSingleton<IFileBatchCosmosClient,FileBatchCosmosClient>();
+            //builder.Services.AddSingleton<IFileBatchCosmosClient,FileBatchCosmosClient>();
             builder.Services.AddSingleton<IFileProcessService,FileProcessService>();
-
+            //builder.Services.AddSingleton<IFileProcessService, FileProcessService>();
         }
 
         private static async Task<CosmosDbService> InitializeCosmosClientInstanceAsync()
@@ -51,6 +52,23 @@ namespace IceCreamAPI
             Microsoft.Azure.Cosmos.DatabaseResponse database = await client.CreateDatabaseIfNotExistsAsync(databaseName);
             await database.Database.CreateContainerIfNotExistsAsync(containerName, "/batchid");
             return cosmosDbService;
+        }
+
+        private static async Task<FileBatchContentClient> InitializeFileBatchContentClientInstanceAsync()
+        {
+            string databaseName = System.Environment.GetEnvironmentVariable("COSMOS_DB_DATABASE_NAME");
+            string containerName = System.Environment.GetEnvironmentVariable("COSMOS_DB_FILE_BATCH_CONTAINER_NAME");
+            string account = System.Environment.GetEnvironmentVariable("COSMOS_DB_URL");
+
+            string key = System.Environment.GetEnvironmentVariable("COSMOS_DB_ACCOUNT_KEY");
+
+            //var credentials = new DefaultAzureCredential();
+
+            Microsoft.Azure.Cosmos.CosmosClient client = new Microsoft.Azure.Cosmos.CosmosClient(account, key);
+            FileBatchContentClient contentService =  new FileBatchContentClient(client, databaseName, containerName); 
+            Microsoft.Azure.Cosmos.DatabaseResponse database = await client.CreateDatabaseIfNotExistsAsync(databaseName);
+            await database.Database.CreateContainerIfNotExistsAsync(containerName, "/batchid");
+            return contentService;
         }
     }
 }

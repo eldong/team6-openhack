@@ -1,37 +1,32 @@
-// Default URL for triggering event grid function in the local environment.
-// http://localhost:7071/runtime/webhooks/EventGrid?functionName={functionname}
 using CrossUtils;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.EventGrid.Models;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.EventGrid;
-using Microsoft.Extensions.Logging;
+using Microsoft.Azure.WebJobs.Extensions.Http;
 using Models;
-using Newtonsoft.Json;
 using Services;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace InternalBusinessUsersBackend
+namespace IceCreamAPI
 {
-    public class OrdersProccessor
+    public class FxOrdersProcessorHttp
     {
-
         private readonly IFileProcessService _fileProcessService;
 
-        public OrdersProccessor(IFileProcessService fileProcessService)
+        public FxOrdersProcessorHttp(IFileProcessService fileProcessService)
         {
             _fileProcessService = fileProcessService;
         }
 
-        [FunctionName("OrdersProccessor")]
-        public async Task Run([EventGridTrigger]EventGridEvent eventGridEvent, ILogger log)
-        {
+        [FunctionName("FxOrdersProcessorHttp")]
+        public async Task<IActionResult> Run(
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req)
+        {           
 
-            log.LogInformation(eventGridEvent.Data.ToString());
-            var storageUrl = JsonConvert.DeserializeObject<InsertedFile>(eventGridEvent.Data.ToString()).Url;
+            string storageUrl = req.Query["storageUrl"];
             var name = OrdersProcessing.FileNameFromUrl(storageUrl);
             var batchId = OrdersProcessing.BatchIdFromFileName(name);
             var fileType = OrdersProcessing.FileTypeFromFileName(name);
@@ -41,7 +36,7 @@ namespace InternalBusinessUsersBackend
             if (fileBatch == null)
             {
                 await CreateNewBatch(storageUrl, name, batchId, fileType);
-                return;
+                return new AcceptedResult();
             }
 
             //It is a completed batch
@@ -55,11 +50,11 @@ namespace InternalBusinessUsersBackend
                 //Delete the batch
                 //_fileProcessService.DeleteBatch(batchId);
 
-                return;
+                return new OkObjectResult(mergedJson);
             }
-
-
-            return;
+            
+            
+            return new AcceptedResult();
         }
 
         private async Task CreateNewBatch(string storageUrl, string name, string batchId, string fileType)
@@ -79,8 +74,6 @@ namespace InternalBusinessUsersBackend
         }
 
 
-
-
         /// <summary>
         /// Sends the file routes and received the merged JSON
         /// </summary>
@@ -88,11 +81,11 @@ namespace InternalBusinessUsersBackend
         /// <returns></returns>
         private static async Task<string> GetMergedJsonData(FileBatch fileBatch)
         {
-
-            var orderMap = new OrderMap();
-            foreach (var file in fileBatch.Files)
+            
+            var orderMap = new OrderMap();            
+            foreach(var file in fileBatch.Files)
             {
-                switch (file.Type)
+                switch(file.Type)
                 {
                     case "OrderHeaderDetails":
                         orderMap.OrderHeaderDetailsCSVUrl = file.StorageUrl;
@@ -103,7 +96,7 @@ namespace InternalBusinessUsersBackend
                     case "ProductInformation":
                         orderMap.ProductInformationCSVUrl = file.StorageUrl;
                         break;
-                }
+                }                
             }
 
             var combineOrderEndpoint = Environment.GetEnvironmentVariable("COMBINE_ORDER_ENDPOINT");
