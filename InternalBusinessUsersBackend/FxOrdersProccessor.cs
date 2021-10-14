@@ -1,9 +1,13 @@
+// Default URL for triggering event grid function in the local environment.
+// http://localhost:7071/runtime/webhooks/EventGrid?functionName={functionname}
 using CrossUtils;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.EventGrid.Models;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
+using Microsoft.Azure.WebJobs.Extensions.EventGrid;
+using Microsoft.Extensions.Logging;
 using Models;
+using Newtonsoft.Json;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -12,21 +16,22 @@ using System.Threading.Tasks;
 
 namespace InternalBusinessUsersBackend
 {
-    public class FxOrdersProcessorHttp
+    public class OrdersProccessor
     {
+
         private readonly IFileProcessService _fileProcessService;
 
-        public FxOrdersProcessorHttp(IFileProcessService fileProcessService)
+        public OrdersProccessor(IFileProcessService fileProcessService)
         {
             _fileProcessService = fileProcessService;
         }
 
-        [FunctionName("FxOrdersProcessorHttp")]
-        public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req)
-        {           
+        [FunctionName("OrdersProccessor")]
+        public async Task<IActionResult> Run([EventGridTrigger]EventGridEvent eventGridEvent, ILogger log)
+        {
 
-            string storageUrl = req.Query["storageUrl"];
+            log.LogInformation(eventGridEvent.Data.ToString());
+            var storageUrl = JsonConvert.DeserializeObject<InsertedFile>(eventGridEvent.Data.ToString()).Url;
             var name = OrdersProcessing.FileNameFromUrl(storageUrl);
             var batchId = OrdersProcessing.BatchIdFromFileName(name);
             var fileType = OrdersProcessing.FileTypeFromFileName(name);
@@ -52,8 +57,8 @@ namespace InternalBusinessUsersBackend
 
                 return new OkObjectResult(mergedJson);
             }
-            
-            
+
+
             return new AcceptedResult();
         }
 
@@ -83,11 +88,11 @@ namespace InternalBusinessUsersBackend
         /// <returns></returns>
         private static async Task<string> GetMergedJsonData(FileBatch fileBatch)
         {
-            
-            var orderMap = new OrderMap();            
-            foreach(var file in fileBatch.Files)
+
+            var orderMap = new OrderMap();
+            foreach (var file in fileBatch.Files)
             {
-                switch(file.Type)
+                switch (file.Type)
                 {
                     case "OrderHeaderDetails":
                         orderMap.OrderHeaderDetailsCSVUrl = file.StorageUrl;
@@ -98,7 +103,7 @@ namespace InternalBusinessUsersBackend
                     case "ProductInformation":
                         orderMap.ProductInformationCSVUrl = file.StorageUrl;
                         break;
-                }                
+                }
             }
 
             var combineOrderEndpoint = Environment.GetEnvironmentVariable("COMBINE_ORDER_ENDPOINT");

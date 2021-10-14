@@ -5,13 +5,13 @@ VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IceCreamAPI", "IceCreamAPI\IceCreamAPI.csproj", "{2A01EF73-84DA-45FA-835A-5A82420D5AF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{27AE1525-1C8F-47EB-B72B-EBE91AF7C877}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{27AE1525-1C8F-47EB-B72B-EBE91AF7C877}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternalBusinessUsersBackend", "InternalBusinessUsersBackend\InternalBusinessUsersBackend.csproj", "{A5F9E74F-09DD-47C7-838A-AE70AC8A7BB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternalBusinessUsersBackend", "InternalBusinessUsersBackend\InternalBusinessUsersBackend.csproj", "{A5F9E74F-09DD-47C7-838A-AE70AC8A7BB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossUtils", "CrossUtils\CrossUtils.csproj", "{9B457537-9086-419B-80FC-C6C0AF1C021E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrossUtils", "CrossUtils\CrossUtils.csproj", "{9B457537-9086-419B-80FC-C6C0AF1C021E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{9F0B8163-3A93-44F9-8899-5A47AE5BD1B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{9F0B8163-3A93-44F9-8899-5A47AE5BD1B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

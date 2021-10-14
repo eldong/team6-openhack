@@ -17,4 +17,3 @@ C:\Users\jmasengesho\Documents\workspace\team6-openhack\Models\obj\Debug\netcore
 C:\Users\jmasengesho\Documents\workspace\team6-openhack\Models\obj\Debug\netcoreapp3.1\Models.csproj.CoreCompileInputs.cache
 C:\Users\jmasengesho\Documents\workspace\team6-openhack\Models\obj\Debug\netcoreapp3.1\Models.dll
 C:\Users\jmasengesho\Documents\workspace\team6-openhack\Models\obj\Debug\netcoreapp3.1\Models.pdb
-C:\Users\wnovoa\source\repos\FunctionApp1\Models\obj\Debug\netcoreapp3.1\Models.csproj.AssemblyReference.cache

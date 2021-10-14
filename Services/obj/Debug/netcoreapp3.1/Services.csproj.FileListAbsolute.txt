@@ -10,6 +10,6 @@ C:\Users\wnovoa\source\repos\FunctionApp1\Services\obj\Debug\netcoreapp3.1\Servi
 C:\Users\wnovoa\source\repos\FunctionApp1\Services\obj\Debug\netcoreapp3.1\Services.AssemblyInfoInputs.cache
 C:\Users\wnovoa\source\repos\FunctionApp1\Services\obj\Debug\netcoreapp3.1\Services.AssemblyInfo.cs
 C:\Users\wnovoa\source\repos\FunctionApp1\Services\obj\Debug\netcoreapp3.1\Services.csproj.CoreCompileInputs.cache
-C:\Users\wnovoa\source\repos\FunctionApp1\Services\obj\Debug\netcoreapp3.1\Services.csproj.CopyComplete
 C:\Users\wnovoa\source\repos\FunctionApp1\Services\obj\Debug\netcoreapp3.1\Services.dll
 C:\Users\wnovoa\source\repos\FunctionApp1\Services\obj\Debug\netcoreapp3.1\Services.pdb
+C:\Users\wnovoa\source\repos\FunctionApp1\Services\obj\Debug\netcoreapp3.1\Services.csproj.CopyComplete

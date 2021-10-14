@@ -1,7 +1,6 @@
 C:\Users\wnovoa\source\repos\FunctionApp1\CrossUtils\bin\Debug\netcoreapp3.1\CrossUtils.deps.json
 C:\Users\wnovoa\source\repos\FunctionApp1\CrossUtils\bin\Debug\netcoreapp3.1\CrossUtils.dll
 C:\Users\wnovoa\source\repos\FunctionApp1\CrossUtils\bin\Debug\netcoreapp3.1\CrossUtils.pdb
-C:\Users\wnovoa\source\repos\FunctionApp1\CrossUtils\obj\Debug\netcoreapp3.1\CrossUtils.csproj.AssemblyReference.cache
 C:\Users\wnovoa\source\repos\FunctionApp1\CrossUtils\obj\Debug\netcoreapp3.1\CrossUtils.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\wnovoa\source\repos\FunctionApp1\CrossUtils\obj\Debug\netcoreapp3.1\CrossUtils.AssemblyInfoInputs.cache
 C:\Users\wnovoa\source\repos\FunctionApp1\CrossUtils\obj\Debug\netcoreapp3.1\CrossUtils.AssemblyInfo.cs

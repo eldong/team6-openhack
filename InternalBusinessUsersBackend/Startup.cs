@@ -12,7 +12,7 @@ namespace InternalBusinessUsersBackend
         public override void Configure(IFunctionsHostBuilder builder)
         {
             builder.Services.AddSingleton<ICosmosDbService>(InitializeCosmosClientInstanceAsync().GetAwaiter().GetResult());
-             builder.Services.AddSingleton<FileBatchCosmosClient>(InitializeFileBatchCosmosClientInstanceAsync().GetAwaiter().GetResult());
+            builder.Services.AddSingleton<FileBatchCosmosClient>(InitializeFileBatchCosmosClientInstanceAsync().GetAwaiter().GetResult());
             builder.Services.AddSingleton<IRatingService,RatingService>();
             builder.Services.AddSingleton<IFileBatchCosmosClient,FileBatchCosmosClient>();
         }
@@ -22,12 +22,11 @@ namespace InternalBusinessUsersBackend
             string databaseName = System.Environment.GetEnvironmentVariable("COSMOS_DB_DATABASE_NAME");
             string containerName = System.Environment.GetEnvironmentVariable("COSMOS_DB_CONTAINER_NAME");
             string account = System.Environment.GetEnvironmentVariable("COSMOS_DB_URL");
+            string key = System.Environment.GetEnvironmentVariable("COSMOS_DB_ACCOUNT_KEY");
 
-            //string key = System.Environment.GetEnvironmentVariable("COSMOS_DB_ACCOUNT_KEY");
+            // var credentials = new DefaultAzureCredential();
 
-            var credentials = new DefaultAzureCredential();
-
-            Microsoft.Azure.Cosmos.CosmosClient client = new Microsoft.Azure.Cosmos.CosmosClient(account, credentials);
+            Microsoft.Azure.Cosmos.CosmosClient client = new Microsoft.Azure.Cosmos.CosmosClient(account, key);
             CosmosDbService cosmosDbService =  new CosmosDbService(client, databaseName, containerName); 
             Microsoft.Azure.Cosmos.DatabaseResponse database = await client.CreateDatabaseIfNotExistsAsync(databaseName);
             await database.Database.CreateContainerIfNotExistsAsync(containerName, "/id");
@@ -40,11 +39,11 @@ namespace InternalBusinessUsersBackend
             string containerName = System.Environment.GetEnvironmentVariable("COSMOS_DB_FILE_BATCH_CONTAINER_NAME");
             string account = System.Environment.GetEnvironmentVariable("COSMOS_DB_URL");
 
-            //string key = System.Environment.GetEnvironmentVariable("COSMOS_DB_ACCOUNT_KEY");
+            string key = System.Environment.GetEnvironmentVariable("COSMOS_DB_ACCOUNT_KEY");
 
-            var credentials = new DefaultAzureCredential();
+            //var credentials = new DefaultAzureCredential();
 
-            Microsoft.Azure.Cosmos.CosmosClient client = new Microsoft.Azure.Cosmos.CosmosClient(account, credentials);
+            Microsoft.Azure.Cosmos.CosmosClient client = new Microsoft.Azure.Cosmos.CosmosClient(account, key);
             FileBatchCosmosClient cosmosDbService =  new FileBatchCosmosClient(client, databaseName, containerName); 
             Microsoft.Azure.Cosmos.DatabaseResponse database = await client.CreateDatabaseIfNotExistsAsync(databaseName);
             await database.Database.CreateContainerIfNotExistsAsync(containerName, "/batchid");
