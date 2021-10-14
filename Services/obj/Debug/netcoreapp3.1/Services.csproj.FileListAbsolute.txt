@@ -13,10 +13,10 @@ C:\Users\wnovoa\source\repos\FunctionApp1\Services\obj\Debug\netcoreapp3.1\Servi
 C:\Users\wnovoa\source\repos\FunctionApp1\Services\obj\Debug\netcoreapp3.1\Services.dll
 C:\Users\wnovoa\source\repos\FunctionApp1\Services\obj\Debug\netcoreapp3.1\Services.pdb
 C:\Users\wnovoa\source\repos\FunctionApp1\Services\obj\Debug\netcoreapp3.1\Services.csproj.CopyComplete
-C:\Users\jmasengesho\Documents\workspace\team6-openhack\Services\bin\Debug\netcoreapp3.1\Services.dll
 C:\Users\jmasengesho\Documents\workspace\team6-openhack\Services\bin\Debug\netcoreapp3.1\Microsoft.Azure.Cosmos.ServiceInterop.dll
 C:\Users\jmasengesho\Documents\workspace\team6-openhack\Services\bin\Debug\netcoreapp3.1\Cosmos.CRTCompat.dll
 C:\Users\jmasengesho\Documents\workspace\team6-openhack\Services\bin\Debug\netcoreapp3.1\Services.deps.json
+C:\Users\jmasengesho\Documents\workspace\team6-openhack\Services\bin\Debug\netcoreapp3.1\Services.dll
 C:\Users\jmasengesho\Documents\workspace\team6-openhack\Services\bin\Debug\netcoreapp3.1\Services.pdb
 C:\Users\jmasengesho\Documents\workspace\team6-openhack\Services\bin\Debug\netcoreapp3.1\Models.dll
 C:\Users\jmasengesho\Documents\workspace\team6-openhack\Services\bin\Debug\netcoreapp3.1\Models.pdb

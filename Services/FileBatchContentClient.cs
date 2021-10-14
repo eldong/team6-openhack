@@ -4,15 +4,16 @@ using Services;
 
 public class FileBatchContentClient : IFileBatchContentClient
 {
-
-         private Container _container;
+        private Container _container;
 
         public FileBatchContentClient(CosmosClient client, string databaseName, string containerName)
         {
             this._container = client.GetContainer(databaseName, containerName);
         }
-    public Task<ItemResponse<FileContent>> WriteFileContentAsync(FileContent file)
-    {
-        throw new System.NotImplementedException();
-    }
+        public async Task<ItemResponse<FileContent>> WriteFileContentAsync(FileContent file)
+        {
+            var result = await _container.CreateItemAsync<FileContent>(file, new PartitionKey(file.BatchId));
+
+            return result;
+        }
 }

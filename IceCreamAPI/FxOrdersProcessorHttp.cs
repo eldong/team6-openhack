@@ -30,6 +30,7 @@ namespace IceCreamAPI
             var name = OrdersProcessing.FileNameFromUrl(storageUrl);
             var batchId = OrdersProcessing.BatchIdFromFileName(name);
             var fileType = OrdersProcessing.FileTypeFromFileName(name);
+
             FileBatch fileBatch = await _fileProcessService.GetFileBatchAsync(batchId);
 
             //It is a new batch
@@ -43,9 +44,14 @@ namespace IceCreamAPI
             if (fileBatch.Files.Count == 3)
             {
                 var mergedJson = await GetMergedJsonData(fileBatch);
+                var responseFile = new FileContent
+                {
+                    Content = mergedJson,
+                    BatchId = fileBatch.BatchId
+                };
 
                 //Insert JSON in Cosmos
-                //_fileProcessService.InsertJson(mergedJson);
+                var result = await _fileProcessService.WriteFileContentAsync(responseFile);
 
                 //Delete the batch
                 //_fileProcessService.DeleteBatch(batchId);

@@ -12,11 +12,11 @@ namespace IceCreamAPI
         public override void Configure(IFunctionsHostBuilder builder)
         {
             builder.Services.AddSingleton<ICosmosDbService>(InitializeCosmosClientInstanceAsync().GetAwaiter().GetResult());
-            builder.Services.AddSingleton<FileBatchCosmosClient>(InitializeFileBatchCosmosClientInstanceAsync().GetAwaiter().GetResult());
-            builder.Services.AddSingleton<FileBatchContentClient>(InitializeFileBatchContentClientInstanceAsync().GetAwaiter().GetResult());
+            builder.Services.AddSingleton<IFileBatchCosmosClient>(InitializeFileBatchCosmosClientInstanceAsync().GetAwaiter().GetResult());
+            builder.Services.AddSingleton<IFileBatchContentClient>(InitializeFileBatchContentClientInstanceAsync().GetAwaiter().GetResult());
             builder.Services.AddSingleton<IRatingService,RatingService>();
             //builder.Services.AddSingleton<IFileBatchCosmosClient,FileBatchCosmosClient>();
-            builder.Services.AddSingleton<IFileProcessService,FileProcessService>();
+            builder.Services.AddSingleton<IFileProcessService, FileProcessService>();
             //builder.Services.AddSingleton<IFileProcessService, FileProcessService>();
         }
 
