@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternalBusinessUsersBacken
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossUtils", "CrossUtils\CrossUtils.csproj", "{9B457537-9086-419B-80FC-C6C0AF1C021E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{9F0B8163-3A93-44F9-8899-5A47AE5BD1B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{9B457537-9086-419B-80FC-C6C0AF1C021E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B457537-9086-419B-80FC-C6C0AF1C021E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B457537-9086-419B-80FC-C6C0AF1C021E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F0B8163-3A93-44F9-8899-5A47AE5BD1B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F0B8163-3A93-44F9-8899-5A47AE5BD1B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F0B8163-3A93-44F9-8899-5A47AE5BD1B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F0B8163-3A93-44F9-8899-5A47AE5BD1B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
