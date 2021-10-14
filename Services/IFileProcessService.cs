@@ -8,5 +8,6 @@ namespace Services
         Task<FileBatch> GetFileBatchAsync(string batchid);
          Task<ItemResponse<FileBatch>> WriteFileBatchAsync(FileBatch batch);
          Task<ItemResponse<FileBatch>> AddFileToBatchAsync(string batchId, ProcessFile file);
+         Task<string> WriteFileContentAsync(FileContent file);
     }
 }

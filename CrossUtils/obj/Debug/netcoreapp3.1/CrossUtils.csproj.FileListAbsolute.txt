@@ -7,3 +7,13 @@ C:\Users\wnovoa\source\repos\FunctionApp1\CrossUtils\obj\Debug\netcoreapp3.1\Cro
 C:\Users\wnovoa\source\repos\FunctionApp1\CrossUtils\obj\Debug\netcoreapp3.1\CrossUtils.csproj.CoreCompileInputs.cache
 C:\Users\wnovoa\source\repos\FunctionApp1\CrossUtils\obj\Debug\netcoreapp3.1\CrossUtils.dll
 C:\Users\wnovoa\source\repos\FunctionApp1\CrossUtils\obj\Debug\netcoreapp3.1\CrossUtils.pdb
+C:\Users\jmasengesho\Documents\workspace\team6-openhack\CrossUtils\bin\Debug\netcoreapp3.1\CrossUtils.deps.json
+C:\Users\jmasengesho\Documents\workspace\team6-openhack\CrossUtils\bin\Debug\netcoreapp3.1\CrossUtils.dll
+C:\Users\jmasengesho\Documents\workspace\team6-openhack\CrossUtils\bin\Debug\netcoreapp3.1\CrossUtils.pdb
+C:\Users\jmasengesho\Documents\workspace\team6-openhack\CrossUtils\obj\Debug\netcoreapp3.1\CrossUtils.csproj.AssemblyReference.cache
+C:\Users\jmasengesho\Documents\workspace\team6-openhack\CrossUtils\obj\Debug\netcoreapp3.1\CrossUtils.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jmasengesho\Documents\workspace\team6-openhack\CrossUtils\obj\Debug\netcoreapp3.1\CrossUtils.AssemblyInfoInputs.cache
+C:\Users\jmasengesho\Documents\workspace\team6-openhack\CrossUtils\obj\Debug\netcoreapp3.1\CrossUtils.AssemblyInfo.cs
+C:\Users\jmasengesho\Documents\workspace\team6-openhack\CrossUtils\obj\Debug\netcoreapp3.1\CrossUtils.csproj.CoreCompileInputs.cache
+C:\Users\jmasengesho\Documents\workspace\team6-openhack\CrossUtils\obj\Debug\netcoreapp3.1\CrossUtils.dll
+C:\Users\jmasengesho\Documents\workspace\team6-openhack\CrossUtils\obj\Debug\netcoreapp3.1\CrossUtils.pdb

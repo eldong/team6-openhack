@@ -8,9 +8,11 @@ namespace Services
     public class FileProcessService : IFileProcessService
     {
         private readonly IFileBatchCosmosClient _cosmosDbService;
-        public FileProcessService(IFileBatchCosmosClient cosmosDbService)
+        private readonly IFileBatchContentClient _fileContentService;
+        public FileProcessService(IFileBatchCosmosClient cosmosDbService, IFileBatchContentClient fileContentService)
         {
             _cosmosDbService = cosmosDbService;
+            _fileContentService = fileContentService;
         }
 
         public async Task<ItemResponse<FileBatch>> AddFileToBatchAsync(string batchId, ProcessFile file)
@@ -36,6 +38,14 @@ namespace Services
              var result = await _cosmosDbService.WriteFileBatchAsync(batch);
 
             return result;
+        }
+
+        public async Task<string> WriteFileContentAsync(FileContent file)
+        {
+            var result = await _fileContentService.WriteFileContentAsync(file);
+
+            return result.Resource.BatchId;
+
         }
     }
 }

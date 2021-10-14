@@ -1,31 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\wnovoa\\source\\repos\\FunctionApp1\\Services\\Services.csproj": {}
+    "C:\\Users\\jmasengesho\\Documents\\workspace\\team6-openhack\\Services\\Services.csproj": {}
   },
   "projects": {
-    "C:\\Users\\wnovoa\\source\\repos\\FunctionApp1\\Models\\Models.csproj": {
+    "C:\\Users\\jmasengesho\\Documents\\workspace\\team6-openhack\\Models\\Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\wnovoa\\source\\repos\\FunctionApp1\\Models\\Models.csproj",
+        "projectUniqueName": "C:\\Users\\jmasengesho\\Documents\\workspace\\team6-openhack\\Models\\Models.csproj",
         "projectName": "Models",
-        "projectPath": "C:\\Users\\wnovoa\\source\\repos\\FunctionApp1\\Models\\Models.csproj",
-        "packagesPath": "C:\\Users\\wnovoa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\wnovoa\\source\\repos\\FunctionApp1\\Models\\obj\\",
+        "projectPath": "C:\\Users\\jmasengesho\\Documents\\workspace\\team6-openhack\\Models\\Models.csproj",
+        "packagesPath": "C:\\Users\\jmasengesho\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jmasengesho\\Documents\\workspace\\team6-openhack\\Models\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\wnovoa\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\jmasengesho\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -68,36 +62,30 @@
         }
       }
     },
-    "C:\\Users\\wnovoa\\source\\repos\\FunctionApp1\\Services\\Services.csproj": {
+    "C:\\Users\\jmasengesho\\Documents\\workspace\\team6-openhack\\Services\\Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\wnovoa\\source\\repos\\FunctionApp1\\Services\\Services.csproj",
+        "projectUniqueName": "C:\\Users\\jmasengesho\\Documents\\workspace\\team6-openhack\\Services\\Services.csproj",
         "projectName": "Services",
-        "projectPath": "C:\\Users\\wnovoa\\source\\repos\\FunctionApp1\\Services\\Services.csproj",
-        "packagesPath": "C:\\Users\\wnovoa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\wnovoa\\source\\repos\\FunctionApp1\\Services\\obj\\",
+        "projectPath": "C:\\Users\\jmasengesho\\Documents\\workspace\\team6-openhack\\Services\\Services.csproj",
+        "packagesPath": "C:\\Users\\jmasengesho\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jmasengesho\\Documents\\workspace\\team6-openhack\\Services\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\wnovoa\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\jmasengesho\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\wnovoa\\source\\repos\\FunctionApp1\\Models\\Models.csproj": {
-                "projectPath": "C:\\Users\\wnovoa\\source\\repos\\FunctionApp1\\Models\\Models.csproj"
+              "C:\\Users\\jmasengesho\\Documents\\workspace\\team6-openhack\\Models\\Models.csproj": {
+                "projectPath": "C:\\Users\\jmasengesho\\Documents\\workspace\\team6-openhack\\Models\\Models.csproj"
               }
             }
           }

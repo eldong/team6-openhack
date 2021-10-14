@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "CPYSrCwshGHty/jYQNr5fFAg1rsvDFjYvdIjUehd4P/zD0b18C1+FzrdYJLrGCo6nB3FjvbenB7YvQJYDR7Jvg==",
+  "dgSpecHash": "9Vt6dLvDWTbs1mzP3hBK+A8MYbD9aKJWm7sKXgHY4EDfR5hNXqbHYqhtXAtt98PI6jDkkaTASWuou9FtuR83wA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\wnovoa\\source\\repos\\FunctionApp1\\Models\\Models.csproj",
+  "projectFilePath": "C:\\Users\\jmasengesho\\Documents\\workspace\\team6-openhack\\Models\\Models.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\wnovoa\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+    "C:\\Users\\jmasengesho\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
   ],
   "logs": []
 }
