@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace IceCreamAPI.Types
+namespace Models
 {
     public class RatingInfo
     {

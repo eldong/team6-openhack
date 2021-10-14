@@ -1,8 +1,8 @@
 using System;
-using IceCreamAPI.Types;
 using System.Collections.Generic;
 using Microsoft.Azure.Cosmos;
 using System.Threading.Tasks;
+using Models;
 
 namespace IceCreamAPI
 {

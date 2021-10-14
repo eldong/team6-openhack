@@ -1,10 +1,7 @@
-using System;
-using IceCreamAPI.Types;
-using System.Collections.Generic;
 using Microsoft.Azure.Cosmos;
+using Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
 namespace IceCreamAPI
 {

@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceCreamAPI", "IceCreamAPI\IceCreamAPI.csproj", "{2A01EF73-84DA-45FA-835A-5A82420D5AF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IceCreamAPI", "IceCreamAPI\IceCreamAPI.csproj", "{2A01EF73-84DA-45FA-835A-5A82420D5AF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{27AE1525-1C8F-47EB-B72B-EBE91AF7C877}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternalBusinessUsersBackend", "InternalBusinessUsersBackend\InternalBusinessUsersBackend.csproj", "{A5F9E74F-09DD-47C7-838A-AE70AC8A7BB2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{2A01EF73-84DA-45FA-835A-5A82420D5AF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A01EF73-84DA-45FA-835A-5A82420D5AF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A01EF73-84DA-45FA-835A-5A82420D5AF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27AE1525-1C8F-47EB-B72B-EBE91AF7C877}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27AE1525-1C8F-47EB-B72B-EBE91AF7C877}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27AE1525-1C8F-47EB-B72B-EBE91AF7C877}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27AE1525-1C8F-47EB-B72B-EBE91AF7C877}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5F9E74F-09DD-47C7-838A-AE70AC8A7BB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5F9E74F-09DD-47C7-838A-AE70AC8A7BB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5F9E74F-09DD-47C7-838A-AE70AC8A7BB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5F9E74F-09DD-47C7-838A-AE70AC8A7BB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

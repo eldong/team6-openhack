@@ -1,6 +1,6 @@
-using IceCreamAPI.Types;
-using System.Collections.Generic;
 using Microsoft.Azure.Cosmos;
+using Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IceCreamAPI

@@ -1,0 +1,9 @@
+C:\Users\wnovoa\source\repos\FunctionApp1\Models\bin\Debug\netcoreapp3.1\Models.deps.json
+C:\Users\wnovoa\source\repos\FunctionApp1\Models\bin\Debug\netcoreapp3.1\Models.dll
+C:\Users\wnovoa\source\repos\FunctionApp1\Models\bin\Debug\netcoreapp3.1\Models.pdb
+C:\Users\wnovoa\source\repos\FunctionApp1\Models\obj\Debug\netcoreapp3.1\Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\wnovoa\source\repos\FunctionApp1\Models\obj\Debug\netcoreapp3.1\Models.AssemblyInfoInputs.cache
+C:\Users\wnovoa\source\repos\FunctionApp1\Models\obj\Debug\netcoreapp3.1\Models.AssemblyInfo.cs
+C:\Users\wnovoa\source\repos\FunctionApp1\Models\obj\Debug\netcoreapp3.1\Models.csproj.CoreCompileInputs.cache
+C:\Users\wnovoa\source\repos\FunctionApp1\Models\obj\Debug\netcoreapp3.1\Models.dll
+C:\Users\wnovoa\source\repos\FunctionApp1\Models\obj\Debug\netcoreapp3.1\Models.pdb

@@ -1,4 +1,4 @@
-﻿namespace IceCreamAPI.Types
+﻿namespace Models
 {
     public class Customer
     {
