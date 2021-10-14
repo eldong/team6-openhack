@@ -1,0 +1,71 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workflows_lachallenge2_name": {
+            "defaultValue": "lachallenge2",
+            "type": "String"
+        },
+        "sites_ohchallenge2_externalid": {
+            "defaultValue": "/subscriptions/620c30a1-87d2-42fc-9eea-1e18cdf2d71d/resourceGroups/OHTeam6Omar/providers/Microsoft.Web/sites/ohchallenge2",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name": "[parameters('workflows_lachallenge2_name')]",
+            "location": "eastus",
+            "properties": {
+                "state": "Enabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {},
+                    "triggers": {
+                        "manual": {
+                            "type": "Request",
+                            "kind": "Http",
+                            "inputs": {
+                                "schema": {
+                                    "productId": "75542e38-563f-436f-adeb-f426f1dabb5c"
+                                }
+                            }
+                        }
+                    },
+                    "actions": {
+                        "Response": {
+                            "runAfter": {
+                                "ohchallenge2": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Response",
+                            "kind": "Http",
+                            "inputs": {
+                                "body": "@{body('ohchallenge2')} and the description is This starfruit ice cream is out of this world!",
+                                "statusCode": 200
+                            }
+                        },
+                        "ohchallenge2": {
+                            "runAfter": {},
+                            "type": "Function",
+                            "inputs": {
+                                "function": {
+                                    "id": "[concat(parameters('sites_ohchallenge2_externalid'), '/functions/ohchallenge2')]"
+                                },
+                                "queries": {
+                                    "productId": "@{triggerOutputs()['queries']['productId']}"
+                                }
+                            }
+                        }
+                    },
+                    "outputs": {}
+                },
+                "parameters": {}
+            }
+        }
+    ]
+}

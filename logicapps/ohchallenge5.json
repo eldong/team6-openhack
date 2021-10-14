@@ -1,0 +1,242 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workflows_ohchallenge6_name": {
+            "defaultValue": "ohchallenge6",
+            "type": "String"
+        },
+        "connections_dynamicscrmonline_externalid": {
+            "defaultValue": "/subscriptions/620c30a1-87d2-42fc-9eea-1e18cdf2d71d/resourceGroups/OHTeam6Omar/providers/Microsoft.Web/connections/dynamicscrmonline",
+            "type": "String"
+        },
+        "connections_outlook_externalid": {
+            "defaultValue": "/subscriptions/620c30a1-87d2-42fc-9eea-1e18cdf2d71d/resourceGroups/OHTeam6Omar/providers/Microsoft.Web/connections/outlook",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name": "[parameters('workflows_ohchallenge6_name')]",
+            "location": "eastus",
+            "properties": {
+                "state": "Enabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "$connections": {
+                            "defaultValue": {},
+                            "type": "Object"
+                        }
+                    },
+                    "triggers": {
+                        "manual": {
+                            "type": "Request",
+                            "kind": "Http",
+                            "inputs": {}
+                        }
+                    },
+                    "actions": {
+                        "For_each": {
+                            "foreach": "@body('HTTP')",
+                            "actions": {
+                                "Append_to_string_variable": {
+                                    "runAfter": {
+                                        "Parse_JSON": [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "type": "AppendToStringVariable",
+                                    "inputs": {
+                                        "name": "emailBody",
+                                        "value": "<tr><td>@{body('Parse_JSON')?['productName']}</id><td>@{body('Parse_JSON')?['productDescription']}</td><td>@{body('Parse_JSON')?['productId']}</td></tr>"
+                                    }
+                                },
+                                "Parse_JSON": {
+                                    "runAfter": {},
+                                    "type": "ParseJson",
+                                    "inputs": {
+                                        "content": "@items('For_each')",
+                                        "schema": {
+                                            "properties": {
+                                                "locationName": {
+                                                    "type": "string"
+                                                },
+                                                "productDescription": {
+                                                    "type": "string"
+                                                },
+                                                "productId": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            },
+                            "runAfter": {
+                                "Initialize_variable_email_body": [
+                                    "Succeeded"
+                                ],
+                                "Initialize_variable_email_footer": [
+                                    "Succeeded"
+                                ],
+                                "Initialize_variable_email_header": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Foreach"
+                        },
+                        "For_each_2": {
+                            "foreach": "@body('List_records_(deprecated)')?['value']",
+                            "actions": {
+                                "Send_an_email_(V2)_3": {
+                                    "runAfter": {},
+                                    "type": "ApiConnection",
+                                    "inputs": {
+                                        "body": {
+                                            "Body": "<p>@{variables('emailHeader')}@{variables('emailBody')}@{variables('emailFooter')}</p>",
+                                            "Subject": "OH Serverless Challenge 5: Team 6",
+                                            "To": "@items('For_each_2')?['emailaddress1']"
+                                        },
+                                        "host": {
+                                            "connection": {
+                                                "name": "@parameters('$connections')['outlook']['connectionId']"
+                                            }
+                                        },
+                                        "method": "post",
+                                        "path": "/v2/Mail"
+                                    }
+                                }
+                            },
+                            "runAfter": {
+                                "For_each": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Foreach"
+                        },
+                        "HTTP": {
+                            "runAfter": {
+                                "List_records_(deprecated)": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Http",
+                            "inputs": {
+                                "method": "GET",
+                                "uri": "https://team6-openhack-apim.azure-api.net/readproductsapi/api/GetProducts"
+                            }
+                        },
+                        "Initialize_variable_email_body": {
+                            "runAfter": {
+                                "HTTP": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "emailBody",
+                                        "type": "string"
+                                    }
+                                ]
+                            }
+                        },
+                        "Initialize_variable_email_footer": {
+                            "runAfter": {
+                                "HTTP": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "emailFooter",
+                                        "type": "string",
+                                        "value": " </tbody>\n  </table>\n  <p style=\"text-align: center; margin-top: 3em;font-size: 20px;\">Please contact\n  your representative at Best For You Organics to get more information..</p>\n</body>\n</html>"
+                                    }
+                                ]
+                            }
+                        },
+                        "Initialize_variable_email_header": {
+                            "runAfter": {
+                                "HTTP": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "emailHeader",
+                                        "type": "string",
+                                        "value": "<!DOCTYPE html>\n<html>\n<body style=\"background-color: whitesmoke; color: #454545; font-family:'Gill Sans',\n 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; padding-bottom: 3em;\">\n  <table style=\"width:100%; color:#454545\">\n    <tr>\n      <td style=\"width:11em;\">\n        <img style=\"margin-left:1em;\"\n        src=\"https://serverlessoh.azureedge.net/public/ice-cream-2202561_320-circle.jpg\"\n          height=\"160\" width=\"160\" alt=\"Fruit Ice Cream\">\n      </td>\n      <td>\n        <p style=\"font-style: italic; font-size: 50px;\n        font-weight:600; margin-left: 1em;\">Best For You Organics</p>\n      </td>\n    </tr>\n  </table>\n  <p style=\"text-align: center; font-style: italic; font-size:\n  80px;\">New Ice Cream Line!</p>\n  <p style=\"margin:2em 0em; font-size: 20px; text-align: center;\">\n  Best For You Organics have a new line of fruit flavored ice creams.\n  Below is the information so you can start the ordering process:\n  </p>\n  <table style=\"width:100%; border-top: 1px solid #454545;\n  border-bottom: 1px solid #454545; color:#454545; padding: 1em; font-size: 20px;\">\n    <thead>\n      <tr>\n        <th style=\"padding-bottom: 1em;\" align=\"left\">Ice Cream</th>\n        <th style=\"padding-bottom: 1em;\" align=\"left\">Description</th>\n        <th style=\"padding-bottom: 1em;\" align=\"left\">Product ID</th>\n      </tr>\n    </thead>\n    <tbody style=\"font-size: 16px;\">"
+                                    }
+                                ]
+                            }
+                        },
+                        "List_records_(deprecated)": {
+                            "runAfter": {},
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['dynamicscrmonline']['connectionId']"
+                                    }
+                                },
+                                "method": "get",
+                                "path": "/datasets/@{encodeURIComponent(encodeURIComponent('org01c23854.crm'))}/tables/@{encodeURIComponent(encodeURIComponent('contacts'))}/items"
+                            }
+                        },
+                        "Send_an_email_(V2)": {
+                            "runAfter": {
+                                "For_each": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "body": {
+                                    "Body": "<p>@{variables('emailHeader')}@{variables('emailBody')}@{variables('emailFooter')}</p>",
+                                    "Subject": "Testing: OH Serverless Challenge 5: Team 6",
+                                    "To": "edaviles@microsoft.com;wnovoa@microsoft.com;eldon.gormsen@microsoft.com;jmasengesho@microsoft.com;inder.rana@microsoft.com"
+                                },
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['outlook']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "path": "/v2/Mail"
+                            }
+                        }
+                    },
+                    "outputs": {}
+                },
+                "parameters": {
+                    "$connections": {
+                        "value": {
+                            "dynamicscrmonline": {
+                                "connectionId": "[parameters('connections_dynamicscrmonline_externalid')]",
+                                "connectionName": "dynamicscrmonline",
+                                "id": "/subscriptions/620c30a1-87d2-42fc-9eea-1e18cdf2d71d/providers/Microsoft.Web/locations/eastus/managedApis/dynamicscrmonline"
+                            },
+                            "outlook": {
+                                "connectionId": "[parameters('connections_outlook_externalid')]",
+                                "connectionName": "outlook",
+                                "id": "/subscriptions/620c30a1-87d2-42fc-9eea-1e18cdf2d71d/providers/Microsoft.Web/locations/eastus/managedApis/outlook"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}
