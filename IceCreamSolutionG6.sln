@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternalBusinessUsersBackend", "InternalBusinessUsersBackend\InternalBusinessUsersBackend.csproj", "{A5F9E74F-09DD-47C7-838A-AE70AC8A7BB2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossUtils", "CrossUtils\CrossUtils.csproj", "{9B457537-9086-419B-80FC-C6C0AF1C021E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A5F9E74F-09DD-47C7-838A-AE70AC8A7BB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5F9E74F-09DD-47C7-838A-AE70AC8A7BB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5F9E74F-09DD-47C7-838A-AE70AC8A7BB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B457537-9086-419B-80FC-C6C0AF1C021E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B457537-9086-419B-80FC-C6C0AF1C021E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B457537-9086-419B-80FC-C6C0AF1C021E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B457537-9086-419B-80FC-C6C0AF1C021E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
