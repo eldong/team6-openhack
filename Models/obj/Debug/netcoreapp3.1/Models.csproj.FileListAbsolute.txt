@@ -7,3 +7,13 @@ C:\Users\wnovoa\source\repos\FunctionApp1\Models\obj\Debug\netcoreapp3.1\Models.
 C:\Users\wnovoa\source\repos\FunctionApp1\Models\obj\Debug\netcoreapp3.1\Models.csproj.CoreCompileInputs.cache
 C:\Users\wnovoa\source\repos\FunctionApp1\Models\obj\Debug\netcoreapp3.1\Models.dll
 C:\Users\wnovoa\source\repos\FunctionApp1\Models\obj\Debug\netcoreapp3.1\Models.pdb
+C:\Users\jmasengesho\Documents\workspace\team6-openhack\Models\bin\Debug\netcoreapp3.1\Models.deps.json
+C:\Users\jmasengesho\Documents\workspace\team6-openhack\Models\bin\Debug\netcoreapp3.1\Models.dll
+C:\Users\jmasengesho\Documents\workspace\team6-openhack\Models\bin\Debug\netcoreapp3.1\Models.pdb
+C:\Users\jmasengesho\Documents\workspace\team6-openhack\Models\obj\Debug\netcoreapp3.1\Models.csproj.AssemblyReference.cache
+C:\Users\jmasengesho\Documents\workspace\team6-openhack\Models\obj\Debug\netcoreapp3.1\Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jmasengesho\Documents\workspace\team6-openhack\Models\obj\Debug\netcoreapp3.1\Models.AssemblyInfoInputs.cache
+C:\Users\jmasengesho\Documents\workspace\team6-openhack\Models\obj\Debug\netcoreapp3.1\Models.AssemblyInfo.cs
+C:\Users\jmasengesho\Documents\workspace\team6-openhack\Models\obj\Debug\netcoreapp3.1\Models.csproj.CoreCompileInputs.cache
+C:\Users\jmasengesho\Documents\workspace\team6-openhack\Models\obj\Debug\netcoreapp3.1\Models.dll
+C:\Users\jmasengesho\Documents\workspace\team6-openhack\Models\obj\Debug\netcoreapp3.1\Models.pdb
