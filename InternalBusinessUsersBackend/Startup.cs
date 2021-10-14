@@ -15,6 +15,7 @@ namespace InternalBusinessUsersBackend
             builder.Services.AddSingleton<FileBatchCosmosClient>(InitializeFileBatchCosmosClientInstanceAsync().GetAwaiter().GetResult());
             builder.Services.AddSingleton<IRatingService,RatingService>();
             builder.Services.AddSingleton<IFileBatchCosmosClient,FileBatchCosmosClient>();
+            builder.Services.AddSingleton<IFileProcessService, FileProcessService>();
         }
 
         private static async Task<CosmosDbService> InitializeCosmosClientInstanceAsync()
