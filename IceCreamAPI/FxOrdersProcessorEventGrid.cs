@@ -1,32 +1,37 @@
-using CrossUtils;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Models;
-using Services;
+// Default URL for triggering event grid function in the local environment.
+// http://localhost:7071/runtime/webhooks/EventGrid?functionName={functionname}
 using System;
+using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Azure.EventGrid.Models;
+using Microsoft.Azure.WebJobs.Extensions.EventGrid;
+using Microsoft.Extensions.Logging;
+using Services;
+using Models;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
+using CrossUtils;
 
 namespace IceCreamAPI
 {
-    public class FxOrdersProcessorHttp
+    public  class FxOrdersProcessorEventGrid
     {
         private readonly IFileProcessService _fileProcessService;
 
-        public FxOrdersProcessorHttp(IFileProcessService fileProcessService)
+        public FxOrdersProcessorEventGrid(IFileProcessService fileProcessService)
         {
             _fileProcessService = fileProcessService;
         }
 
-        [FunctionName("FxOrdersProcessorHttp")]
-        public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req)
-        {           
-
-            string storageUrl = req.Query["storageUrl"];
+        [FunctionName("FxOrdersProcessorEventGrid")]
+        public  async Task<IActionResult> Run([EventGridTrigger]EventGridEvent eventGridEvent, ILogger log)
+        {
+            
+            dynamic data = eventGridEvent.Data;
+            var storageUrl = data.url;
             var name = OrdersProcessing.FileNameFromUrl(storageUrl);
             var batchId = OrdersProcessing.BatchIdFromFileName(name);
             var fileType = OrdersProcessing.FileTypeFromFileName(name);

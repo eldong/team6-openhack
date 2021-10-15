@@ -16,3 +16,4 @@ C:\Users\jmasengesho\Documents\workspace\team6-openhack\CrossUtils\obj\Debug\net
 C:\Users\jmasengesho\Documents\workspace\team6-openhack\CrossUtils\obj\Debug\netcoreapp3.1\CrossUtils.csproj.CoreCompileInputs.cache
 C:\Users\jmasengesho\Documents\workspace\team6-openhack\CrossUtils\obj\Debug\netcoreapp3.1\CrossUtils.dll
 C:\Users\jmasengesho\Documents\workspace\team6-openhack\CrossUtils\obj\Debug\netcoreapp3.1\CrossUtils.pdb
+C:\Users\jmasengesho\Documents\workspace\team6-openhack\CrossUtils\obj\Debug\netcoreapp3.1\CrossUtils.csproj.AssemblyReference.cache
